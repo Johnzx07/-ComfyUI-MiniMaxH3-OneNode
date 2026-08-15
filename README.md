@@ -1,5 +1,12 @@
 # One Node · MiniMax H3 (video + audio)
 
+<p align="center">
+  <a href="https://youtube.com/shorts/sGqG9UIB-Is">
+    <img src="assets/H3_OneNode_preview.gif" width="300" alt="One Node · MiniMax H3 — watch the trailer">
+  </a>
+  <br><b>▶ Watch the trailer</b>
+</p>
+
 A single‑node ComfyUI front end for **MiniMax H3** — MiniMax's omni‑modal generator that
 produces video **with native stereo audio** (voice, SFX, music) in one forward pass. Drop
 **one** node and everything — modes, prompt, references, resolution, sampling, speed, and a
@@ -25,6 +32,20 @@ and submits it to `/prompt`; there are no wires to manage.
 
 MiniMax H3 is **guidance‑distilled**: `BasicGuider`, positive‑only — **no CFG, no negative
 prompt.** Put everything (including what you *don't* want, phrased positively) in the prompt.
+
+---
+
+## Screenshots
+
+| **Text → Video** · T2V | **Image / First→Last** · I2V |
+|:---:|:---:|
+| ![T2V](assets/screenshots/t2v.png) | ![I2V](assets/screenshots/i2v.png) |
+| **Reference editor** · R2V | **Upscaler · Enhancer Pro** |
+| ![R2V](assets/screenshots/r2v.png) | ![Upscale](assets/screenshots/upscale.png) |
+
+**2‑pass HD** — generate fast at a low draft resolution, then latent‑upscale to HD (real detail, cheaper than full‑res):
+
+![Two-pass HD](assets/screenshots/twopass.png)
 
 ---
 
