@@ -4,7 +4,8 @@
   <a href="https://youtube.com/shorts/sGqG9UIB-Is">
     <img src="assets/H3_OneNode_preview.gif" width="300" alt="One Node · MiniMax H3 — watch the trailer">
   </a>
-  <br><b>▶[Watch the trailer on YouTube](https://youtube.com/shorts/sGqG9UIB-Is)</b>
+  <br>
+  <a href="https://youtube.com/shorts/sGqG9UIB-Is"><b>▶ Watch the trailer on YouTube</b></a>
 </p>
 
 A single‑node ComfyUI front end for **MiniMax H3** — MiniMax's omni‑modal generator that
