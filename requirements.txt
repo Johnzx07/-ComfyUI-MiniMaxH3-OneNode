@@ -1,0 +1,8 @@
+# ComfyUI-MiniMaxH3-OneNode has no extra Python dependencies of its own.
+#
+# It drives ComfyUI's built-in MiniMax H3 nodes (comfy_extras/nodes_minimax_h3.py,
+# added in Comfy-Org/ComfyUI PR #15224) plus core utility nodes (ResolutionSelector,
+# CreateVideo, SaveVideo, LoadVideo, GetVideoComponents, LoadAudio). Everything ships
+# with a current ComfyUI — just keep ComfyUI up to date.
+#
+# aiohttp / folder_paths / server are provided by ComfyUI itself.

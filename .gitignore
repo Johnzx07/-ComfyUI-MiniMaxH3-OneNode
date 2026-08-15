@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Node's per-user runtime state (never ship personal settings/favorites)
+config.user.json
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.log
+node_modules/

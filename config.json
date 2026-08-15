@@ -1,0 +1,34 @@
+{
+  "prompt_templates": [
+    {
+      "name": "Action trailer (rooftop chase · official sample)",
+      "prompt": "Realistic live-action cinematic look, action movie trailer: practical film photography style, a post-rain dusk metropolis, anamorphic lens, shallow depth of field, film grain, city volumetric fog, flying-car traffic between the towers, powerful natural movement.\n\nScene: at dusk on a cluster of skyscrapers, the protagonist is being chased, sprinting and leaping across rooftops as pursuers close in behind. Every leap is life-or-death, thrilling and fluid.\n\nStoryboard (rapid cuts, landing on the musical beats):\n[0s-1.5s] Shot 1: high side angle, the protagonist sprinting at the roof edge, pursuers in the rooftop doorway behind him, wind catching his coat.\n[1.5s-3s] Shot 2: he leaps the gap between buildings, body stretched mid-air, tower light-trails behind him, a slight slow-motion feel.\n[3s-5s] Shot 3: he lands, rolls, rises low-angle in the tower shadows and keeps running.\n\nCamera: each shot its own angle, hard clean cuts, no dissolves, a slight frame jitter on the jumps.\n\nAudio: wind, rapid footsteps, city ambience, a low score underneath, an accent hit on each leap, the score bursting at 3s.\n\nNo text, subtitles, logos or watermarks, no cartoon rendering, keep the live-action texture."
+    },
+    {
+      "name": "Vaporwave title sequence (legible text · official sample)",
+      "prompt": "Vaporwave title sequence look: pink and blue gradient palette, VHS tracking artifacts, Greek statue motifs, chrome palm trees, RGB chromatic aberration, lo-fi retro atmosphere, languid and nostalgic.\n\nTimeline:\n[0s-1s] VHS static opens, the title \"MINIMAX\" appears with an RGB split and a slight horizontal jitter.\n[1s-2.5s] Hard cut, a Greek plaster bust close-up, pink-purple gradient sky, a pixelated sun.\n[2.5s-4s] Clean \"STARRING\" credits, \"VIDEO\" and \"AUDIO\" each shown exactly once.\n[4s-5s] Final card \"ONE NODE\" holds, one VHS tracking glitch settling into stability.\n\nHard cuts only, transitions landing with tape jumps, no push-ins, no dissolves.\n\nAudio: lo-fi vaporwave score, a slow drum machine with soft bass, a VHS tape-noise sample joins at 2.5s, the melody fading for the last 1s.\n\nAll text must be clearly legible, do not misspell English, no Chinese characters, do not repeat names, no soft dissolves, no subtitle bars."
+    },
+    {
+      "name": "Talking-head dialogue (native voice)",
+      "prompt": "A warm medium close-up of a young woman at a sunlit kitchen table, natural window light, shallow depth of field, gentle handheld motion. She looks into the lens, smiles, and says clearly: \"Honestly? This is the best coffee I've made all week.\" She lifts the mug and takes a sip.\n\nAudio: her voice, clear and close, a soft room tone, a quiet clink as the mug meets the table, faint birdsong through the window. No music.\n\nNatural spoken English, lip-synced, no subtitles, no on-screen text."
+    },
+    {
+      "name": "Nature ambience (drone + sound design)",
+      "prompt": "Aerial drone shot flying low over a rugged turquoise coastline at golden hour, waves crashing on dark rocks, smooth forward camera motion, cinematic color grade, highly detailed water and spray.\n\nAudio: the roll and crash of surf, wind over the microphone, distant gulls, a slow ambient pad swelling underneath. No dialogue.\n\nNo text or watermarks, photoreal, keep the natural film texture."
+    }
+  ],
+  "r2v_prompt_templates": [
+    {
+      "name": "Character + kaiju (2 image refs · official sample)",
+      "prompt": "Bold comic-book ink style, heavy linework, red and blue-black palette, night city. Use <Picture 1> and <Picture 2> as reference frames.\nCUT 1: top-down on the little boy superhero on the rooftop, red cape fluttering, hands on his hips, freckles and a cocky grin as he looks up into the lens. The camera slowly descends as he says: \"GET READY TO MEET YOUR MAKER\" - huge jagged comic lettering hanging in the air above him.\nTRANSITION: a violent WHIP PAN that smears the words away, motion-streaked -\nCUT 2: low hero angle on the colossal black mech-kaiju towering over the skyline as it rears back and unleashes a giant terrifying ROAR, jaws wide, red eyes and chest-core flaring, blue lightning arcing off its head, comic speed-lines and ink splatter bursting from the sound. Hold on the roar.\n\nAudio: the boy's bright cocky voice on the line, a whip-pan whoosh on the transition, then a huge bass-heavy monster roar with a shockwave rumble and crackling electricity."
+    },
+    {
+      "name": "Voice clone from reference audio",
+      "prompt": "Use <Picture 1> as the character and speak in the exact voice of <Audio 1>. Medium close-up, soft key light, the character looks into the lens and says warmly: \"Welcome back - let's pick up right where we left off.\" Subtle natural head movement, shallow depth of field.\n\nAudio: the character's spoken line in the cloned voice from <Audio 1>, a quiet room tone underneath, no music, no subtitles."
+    },
+    {
+      "name": "Motion / camera transfer from a reference video",
+      "prompt": "Match the camera move and motion timing of <Video 1> exactly, but restyle the scene using <Picture 1> as the subject and look. Keep the same pacing and framing as the reference video.\n\nAudio: reuse the soundtrack feel of <Video 1> - the same rhythm of sound effects and score, re-scored to fit the new scene."
+    }
+  ]
+}

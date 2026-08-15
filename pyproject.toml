@@ -1,0 +1,21 @@
+[project]
+name = "comfyui-minimaxh3-onenode"
+description = "One Node · MiniMax H3 — a single-node ComfyUI front end for MiniMax H3 video + native audio (T2V / I2V / R2V), with 2-pass HD, 1-click Turbo presets, an upscale tab, and a reference editor."
+version = "1.0.0"
+license = { text = "Apache-2.0" }
+authors = [{ name = "The New Game Plus" }]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+
+[project.urls]
+Repository = "https://github.com/Johnzx07/ComfyUI-MiniMaxH3-OneNode"
+"Ko-fi" = "https://ko-fi.com/thenewgameplus"
+YouTube = "https://www.youtube.com/@TheNewGamePluss"
+
+# ComfyUI registry metadata (registry.comfy.org).
+# Fill PublisherId after you create a publisher account; then `comfy node publish`.
+[tool.comfy]
+PublisherId = ""
+DisplayName = "One Node · MiniMax H3"
+Icon = ""

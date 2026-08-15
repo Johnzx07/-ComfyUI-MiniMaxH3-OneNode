@@ -1,0 +1,23 @@
+ComfyUI-MiniMaxH3-OneNode
+Copyright 2026 The New Game Plus
+
+A single-node front end for MiniMax H3 video + audio generation in ComfyUI, in the
+"One Node" family (Krea-2 image, Wan 2.2 video, LTX-2 video). It injects and runs a
+real ComfyUI graph on Generate; it does not reimplement the model.
+
+This product relies on, but does not include, the following:
+
+- ComfyUI (https://github.com/comfyanonymous/ComfyUI) and its built-in MiniMax H3
+  nodes (comfy_extras/nodes_minimax_h3.py, added in PR #15224): MiniMaxH3ImageToVideo,
+  MiniMaxH3ReferenceToVideo, MiniMaxH3SigmaShift — GPL-3.0.
+- The MiniMax H3 model weights, text encoder (Qwen3-VL-32B) and VAEs, distributed by
+  Comfy-Org at https://huggingface.co/Comfy-Org/MiniMax-H3 under their respective
+  licenses. MiniMax H3 by MiniMax (https://www.minimax.io/blog/minimax-h3).
+
+Model weights are NOT bundled. Download them yourself and place them under
+ComfyUI/models/{diffusion_models,text_encoders,vae}/ as described in the node's
+in-panel download section and in README.md.
+
+Use responsibly. MiniMax H3 renders native audio including speech; do not use it to
+impersonate real people without consent, to generate deceptive media, or for any
+content involving minors or non-consensual subjects.
