@@ -1,239 +1,163 @@
-# One Node · MiniMax H3 (video + audio)
+# One Node - MiniMax H3 (video + native audio)
 
-<p align="center">
-  <a href="https://youtube.com/shorts/sGqG9UIB-Is">
-    <img src="assets/H3_OneNode_preview.gif" width="300" alt="One Node · MiniMax H3 — watch the trailer">
-  </a>
-  <br>
-  <a href="https://youtube.com/shorts/sGqG9UIB-Is"><b>▶ Watch the trailer on YouTube</b></a>
-</p>
+A single-node ComfyUI front end for **MiniMax H3**. It generates video with native
+stereo audio and exposes text-to-video, image-to-video, first/last-frame animation,
+reference-to-video, protected HD refinement, repair, continuation, and upscaling in
+one panel. Pressing **Generate** builds and submits a real ComfyUI graph; no manual
+wiring is required.
 
-A single‑node ComfyUI front end for **MiniMax H3** — MiniMax's omni‑modal generator that
-produces video **with native stereo audio** (voice, SFX, music) in one forward pass. Drop
-**one** node and everything — modes, prompt, references, resolution, sampling, speed, and a
-two‑pass HD path — lives in its in‑panel UI. On **Generate** it injects a real ComfyUI graph
-and submits it to `/prompt`; there are no wires to manage.
+> **Hardware target:** optimized and tested for **NVIDIA RTX GPUs with 16 GB VRAM**.
+> The protected 15-second presets use model offload, FP32 latent upscaling, small
+> temporal windows, CPU accumulation, and a low-denoise second pass to reach
+> ratio-aware 1080p or 2K-class output on this target.
 
-> **Made by The New Game Plus.** If this saves you time, a coffee is hugely appreciated —
-> ☕ **[Ko‑fi](https://ko-fi.com/thenewgameplus)** · ▶ **[YouTube](https://www.youtube.com/@TheNewGamePluss)**
-> _(Believed to be the first "one‑node" wrapper for MiniMax H3.)_
+> **Coming soon:** a separate **8 GB VRAM optimized edition** is in development.
+> The current release should not be presented as an 8 GB guarantee.
 
-> Add the node: right‑click → Add Node → **MiniMaxH3‑OneNode → One Node · MiniMax H3**
-> (or double‑click the canvas and search "MiniMax H3").
+## Release documentation
 
----
+- [Detailed installation guide](INSTALL.md)
+- [User guide PDF](output/pdf/MiniMax_H3_One_Node_User_Guide.pdf)
+- [Companion nodes and credits](CREDITS.md)
+- [Optional CREATE assistant guide](docs/CREATE_ASSISTANT.md)
+- [License](LICENSE) and [third-party notice](NOTICE)
 
-## Three modes
+## Highlights in v3.24
 
-| Pill | Node under the hood | What it does |
-|------|---------------------|--------------|
-| **T2V** | `MiniMaxH3ImageToVideo` (fl2va) | Text → video + audio. Describe shots, camera, **and** sound. |
-| **I2V** | `MiniMaxH3ImageToVideo` (fl2va) | Animate a still (first frame), or bridge **first → last** frame (FL2V). |
-| **R2V** | `MiniMaxH3ReferenceToVideo` (ref2va) | Reference **editor**: lock a character / style / motion / camera / voice from up to **9 images, 3 videos, 3 audio clips**, then describe the target scene. |
+- **Protected 15s / 16GB presets:** one click configures a 0.5 MP draft, FP32
+  neural latent upscale, 20-frame CPU-fused H3 windows, locked stage-1 audio,
+  and a 4-step refine at 0.20 denoise.
+- **1080p and 2K buttons are aspect-ratio aware.** A 9:16 job produces a vertical
+  canvas; a 16:9 job produces a horizontal canvas. The 1080-class target is 2 MP
+  (for example 1088 x 1920 or 1920 x 1088). The 2K-class target is 4 MP.
+- **Pinned LightX recipes:** the selected 4-step or 8-step file controls the matching
+  schedule, so a newly added checkpoint cannot silently replace a saved recipe.
+- **Anime Motion quick-add:** tuned for I2V and available as a conservative beta in
+  Reference mode. Always check identity and audio before a final render.
+- **H3 Studio, repair, finish, and upscaling:** optional tools are detected at run
+  time and only used when their companion node packs are installed.
+- **CREATE:** an optional text-only Qwen prompt assistant with offline MiniMax H3
+  prompt guidance. It cannot submit renders or inspect attached media.
 
-MiniMax H3 is **guidance‑distilled**: `BasicGuider`, positive‑only — **no CFG, no negative
-prompt.** Put everything (including what you *don't* want, phrased positively) in the prompt.
+## Optimized RTX 5070 Ti demo
 
----
+[![MiniMax H3 local text-to-video render made with the optimized One Node on an RTX 5070 Ti](assets/minimax-h3-optimized-rtx-5070-ti.gif)](https://youtu.be/E660Vg4-0-o)
 
-## Screenshots
+**Video:** [Minimax H3 local render Text to video with my Optimized One node RTX 5070 Ti](https://youtu.be/E660Vg4-0-o)
 
-| **Text → Video** · T2V | **Image / First→Last** · I2V |
-|:---:|:---:|
-| ![T2V](assets/screenshots/t2v.png) | ![I2V](assets/screenshots/i2v.png) |
-| **Reference editor** · R2V | **Upscaler · Enhancer Pro** |
-| ![R2V](assets/screenshots/r2v.png) | ![Upscale](assets/screenshots/upscale.png) |
+This full 15-second local text-to-video shot was rendered with the optimized One
+Node on an NVIDIA RTX 5070 Ti. The README preview is compressed and silent; click
+the animation to watch the 1080p version with audio on YouTube.
 
-**2‑pass HD** — generate fast at a low draft resolution, then latent‑upscale to HD (real detail, cheaper than full‑res):
+### Promo stills
 
-![Two-pass HD](assets/screenshots/twopass.png)
+| Opening setup | Character moment | Final reveal |
+| :---: | :---: | :---: |
+| [![Police cars, fire, and the approaching lead character](assets/minimax-h3-rtx-5070-ti-promo-01.jpg)](https://youtu.be/E660Vg4-0-o) | [![Rain-soaked character and police officer under emergency lights](assets/minimax-h3-rtx-5070-ti-promo-02.jpg)](https://youtu.be/E660Vg4-0-o) | [![Lead character with an overturned vehicle in the background](assets/minimax-h3-rtx-5070-ti-promo-03.jpg)](https://youtu.be/E660Vg4-0-o) |
 
----
+## Main generation modes
 
-## Install
+| Mode | Backend | Purpose |
+| --- | --- | --- |
+| **T2V** | `MiniMaxH3ImageToVideo` / FL2VA | Generate video and audio from a prompt. |
+| **I2V** | `MiniMaxH3ImageToVideo` / FL2VA | Animate a first frame, or bridge first and last frames. |
+| **R2V** | `MiniMaxH3ReferenceToVideo` / Ref2VA | Use image, video, and audio references for identity, style, motion, camera, or voice. |
 
-**1. The node**
+MiniMax H3 is guidance-distilled. The graph uses positive conditioning and does not
+provide a traditional negative-prompt or CFG control. Describe the wanted scene,
+camera, action, sound, and restrictions clearly in the main prompt.
+
+## Quick install
+
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/Johnzx07/ComfyUI-MiniMaxH3-OneNode
+git clone https://github.com/Johnzx07/ComfyUI-MiniMaxH3-OneNode.git
 ```
-Requires a current **ComfyUI** with the native MiniMax H3 nodes (Comfy‑Org/ComfyUI **PR #15224**).
-No extra Python deps of its own.
 
-**2. The models** — from [🤗 Comfy‑Org/MiniMax‑H3](https://huggingface.co/Comfy-Org/MiniMax-H3).
-Pick **one** quant per model (fp8 / int8 ≈ 21 GB — good for a 16–24 GB card):
-```
+Update ComfyUI, restart it, then add:
+
+**MiniMaxH3-OneNode -> One Node - MiniMax H3 (video + audio)**
+
+The core T2V, I2V, and R2V modes use ComfyUI's native MiniMax H3 nodes. The protected
+HD recipe additionally needs **ComfyUI-MMH3Tools** and the **MiniMax H3 Latent
+Upscaler**. Optional tabs identify their missing companion packs inside the panel.
+See [INSTALL.md](INSTALL.md) for model paths, exact companion repositories, portable
+Python commands, updates, and troubleshooting.
+
+## Required model files
+
+Model weights are not bundled. Download compatible ComfyUI files from
+[Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3) and follow each
+model card's license and use terms.
+
+```text
 ComfyUI/models/
-├── diffusion_models/
-│   ├── minimax_h3_fl2va_pruned_fp8_scaled.safetensors    (T2V / I2V)
-│   └── minimax_h3_ref2va_pruned_fp8_scaled.safetensors   (R2V)
-├── text_encoders/
-│   └── qwen3vl_32b_minimax_h3_int8_convrot.safetensors   (or nvfp4_awq on 50‑series)
-└── vae/
-    ├── minimax_h3_video_vae_fp16.safetensors
-    └── minimax_h3_audio_vae_fp32.safetensors
+|-- diffusion_models/
+|   |-- minimax_h3_fl2va_pruned_fp8_scaled.safetensors   # T2V / I2V
+|   `-- minimax_h3_ref2va_pruned_fp8_scaled.safetensors  # R2V
+|-- text_encoders/
+|   `-- qwen3vl_32b_minimax_h3_int8_convrot.safetensors
+`-- vae/
+    |-- minimax_h3_video_vae_fp16.safetensors
+    `-- minimax_h3_audio_vae_fp32.safetensors
 ```
-The node **auto‑detects** these — open **Models** → **↻ Rescan** after copying (no restart
-needed for a rescan). H3's sweet spot is a **768 short edge, ≤ 1344 × 768** canvas.
 
----
+Equivalent supported INT8 or Blackwell-oriented quantizations can be selected in
+the **Models** panel. Use **Rescan models** after adding files.
 
-## Settings, combinations & recipes
+## Protected 15-second recipe
 
-The node exposes real controls, but you only need a few combinations. Think in **three tiers**:
+Open **Advanced -> Two-pass HD**, then choose **1080p** or **2K** under
+**Protected 15s / 16GB recipe**. The button sets the complete known-good route:
 
-| Tier | Turbo | 2‑pass HD | TeaCache | Use for |
-|------|-------|-----------|----------|---------|
-| **Draft / test** | on | off | **on** | checking motion, framing, prompt |
-| **Fast final** | preset on | **on** | off | volume shots, social, most work |
-| **Hero final** | off | **on** | off | the money shots / complex fast motion |
+1. Generate 362 frames at 24 fps from a 0.5 MP draft.
+2. Split video and audio latents.
+3. Upscale the video latent with the FP32 H3 3D latent upscaler.
+4. Rejoin and lock the original stage-1 audio.
+5. Refine the target canvas through small overlapping H3 windows on a CPU
+   accumulator.
+6. Decode once and save the final video.
 
-### Non‑Turbo (hero) — the quality baseline
-- **Sampler** `euler` · **Steps** `20` · **CFG** none (H3 is CFG‑less)
-- **Scheduler** `simple` for T2V/I2V, `beta` for R2V — the node **auto‑sets this per mode**, just leave it.
-- **Sigma shift** off (model's built‑in 12/3) · **TeaCache** off · **audio** on
+For hero shots, keep Turbo and cache accelerators off. The protected button saves
+setup time; it does not change the selected aspect ratio.
 
-### 2‑pass HD (generate cheap, deliver sharp)
-Generate at a **low draft** resolution, then upscale + lightly refine to HD. It's a **quality
-pass, not a speed trick** — but it's far cheaper than diffusing HD natively.
+## Anime Motion LoRA
 
-- **DRAFT** box = the **generation** resolution (the pass that decides motion). Keep it low:
-  **0.4–0.5 MP** normally, ~**768p (≈1 MP)** for the FL2V Turbo preset (its trained res).
-- **Resolution slider** = the **final / target** size. Set it **higher** than the draft:
-  **1.6 MP** for ~10–15 s clips, up to **2.0 MP (1080p)** for short (≤ 8 s) clips.
-- **Refine** `4 steps · 0.2 denoise` (drop to `0.15` if fast motion shimmers). Leave these.
-- **The one rule:** the panel's own sentence must show **two different numbers**
-  (`generate low → output high`). If they're equal, you're getting no upscale — raise the target.
-- **Panels flip label by mode:** if the box says **DRAFT** it's the generation res; if it says
-  **REFINE** the *Resolution slider* is the generation res instead. Read the label.
-- The HD pass adds **spatial** detail, not **motion** quality — it sharpens, it can't un‑jank
-  a bad 4‑step motion.
+Install the MiniMax H3 Turbo companion node, place the Anime Motion LoRA in
+`ComfyUI/models/loras/`, then use **Advanced -> Style LoRA -> Anime Motion**.
 
-### 1‑click Turbo presets (Advanced ▸ Speed)
-Distilled 4‑step LoRAs (lightx2v/ModelTC). Pick a preset and **everything** — LoRA, sigma
-shift, sampler, steps — locks to the trained recipe; you only touch **render quality**.
+- **I2V:** recommended starting strength is 1.0.
+- **R2V:** starts conservatively at 0.65 and is marked beta. Verify identity, motion,
+  and audio on a short test before a final render.
+- The LoRA animates H3 video. It is not a text-to-image model.
 
-| Preset | Locks to | Use in mode |
-|--------|----------|-------------|
-| **FL2V 768p** | 4 steps · shift 6/3 · euler/simple · str 1.0 · ~768p | T2V / I2V (first→last‑frame) |
-| **R2V lip‑sync** | 4 steps · shift 12/3 · euler/simple · str 1.0 · ~0.5 MP · **keeps audio** | R2V |
+## Privacy and local state
 
-Turbo trades some motion nuance for ~5× speed — great for volume, keep **non‑Turbo for hero
-shots**. (The R2V preset is designed to preserve audio‑ref lip‑sync at 4 steps; confirm on
-your first clip.) Set the preset to **Off** to return to the full non‑Turbo path.
+The repository contains no model weights, full-resolution renders, API tokens,
+machine paths, or personal favorites. Its only generated-media assets are the
+compressed public demo GIF and three promotional stills above. Runtime preferences
+are stored under the user's ComfyUI data directory and are excluded from releases.
+The optional CREATE assistant keeps its API token in memory for the current
+connection; it is not written to the repository, browser storage, or the node's
+config file.
 
-### TeaCache (speed) — when
-**On** for drafts and calm/low‑motion shots (it reuses steps between near‑identical frames).
-**Off** for finals, fast motion, and any lip‑sync (it smears exactly the frames that change).
+## Verification
 
-### Sample recipes
+The release includes CPU/headless tests for graph construction, mode routing,
+reference keys, resolution and duration math, prompt validation, assistant request
+guards, and JavaScript/Python syntax. Before packaging, the protected two-pass graph
+also passed its byte-for-byte v3.23 regression check. A real protected 1080p,
+10-second I2V render completed on the 16 GB target configuration.
 
-**Cinematic hero shot (I2V, non‑Turbo)**
-`I2V · euler · 20 · simple · shift off · TeaCache off · audio on · DRAFT 0.4 → slider 1.6 · refine 4/0.2 · ~5 s`
+## Credits and license
 
-**Fast keyframe animation (FL2V, Turbo)**
-`I2V + end frame · FL2V 768p preset · DRAFT ~768p → slider 1.6–2.0 · TeaCache off · ~3–4 s`
-_Panel A → Panel B should be the same shot with a change (a turn / expression / small action), not two unrelated compositions._
+This wrapper is licensed under Apache-2.0. It does not reimplement MiniMax H3 and
+does not bundle model weights. MiniMax H3, ComfyUI, the official prompt-writing
+material, and every optional companion pack remain the work of their respective
+authors under their own licenses. See [CREDITS.md](CREDITS.md) and [NOTICE](NOTICE).
 
-**Character / idol lip‑sync (R2V, Turbo)**
-`R2V · R2V lip‑sync preset · reference image + reference audio · DRAFT 0.5 → slider 0.9 · TeaCache off · ~8–15 s`
+Not affiliated with MiniMax or Comfy-Org. Use generated speech and reference media
+responsibly and obtain consent where required.
 
-**Duration guidance:** FL2V transitions want **3–4 s** (both ends are fixed — long clips
-drift). Talking / lip‑sync and full scenes: **8–15 s** (H3's trained range).
-
----
-
-## The panel
-
-- **Prompt** — one block covering picture *and* audio. "Load example…" drops in tuned
-  starters (mode‑aware). In **R2V**, tag chips insert `<Picture N>` / `<Video N>` / `<Audio N>`.
-- **Frames** (I2V) — first frame (sets geometry) + optional last frame (animates toward it).
-- **Reference editor** (R2V) — up to **9** image slots (MiniMax recommends **≤ 5**), 3 reference
-  videos (each with optional paired soundtrack), 3 standalone audio clips, and a **Reference
-  detail** dial (`match` = fast, `max` = stronger identity).
-- **Video** — aspect ratio + megapixels → live `W × H`, with a collapsible **Size table**.
-- **Sampling** — steps, sampler, scheduler (auto per mode), seed.
-- **Advanced** — the **1‑click Turbo presets**, manual Turbo LoRA, Style/character LoRA,
-  custom sigma shift, and **Speed** toggles (Sage attention, Sol‑attn, Blackwell fast FP8).
-- **Upscale tab** — post‑process a finished clip (ESRGAN model / SeedVR2 / FlashVSR / RTX‑VSR).
-- **Models** — the auto‑detected dropdowns + rescan.
-
-**Resizable** (drag the corner, size remembered) · **full‑screen** button · a **progress bar**
-(percent · step · elapsed) · a **Gallery** of finished renders. Output lands in
-`output/ComfyUI-MiniMaxH3-OneNode/`; the 📁 button opens it. **Unmute the preview** — the audio is real.
-
----
-
-## Optional add‑ons (speed & upscale)
-
-Everything below is **optional** — the node detects each one and greys the toggle (with an
-install note) if it's missing, so nothing ever breaks the graph. Install via **ComfyUI Manager**
-or `git clone` into `custom_nodes`, then restart ComfyUI. **All credit to their authors.**
-
-**Turbo (4‑step distilled) —** `ComfyUI-MiniMax-H3-Turbo` node pack (`MiniMaxH3TurboLoRA`,
-`MiniMaxH3TurboSampler`) + the LoRAs:
-- larryvrh / drbaph / Abiray — `minimax_h3_turbo_*` (general 4‑step)
-- **lightx2v / ModelTC** — [Minimax‑h3‑Turbo](https://huggingface.co/lightx2v/Minimax-h3-Turbo):
-  `minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16.safetensors` (FL2V preset) and
-  `minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors` (R2V preset) → `models/loras/`.
-
-**Attention / memory —**
-- **KJNodes** (`ComfyUI-KJNodes`) — Sage attention kernel (~7 % faster, lower peak VRAM).
-- **Sol‑Attn** (NVIDIA sparse attention patch) + FFN chunking — lower MLP peak VRAM.
-
-**Cache accelerators (pick one) —**
-- **TeaCache** — `MiniMaxH3TeaCache` (Icyoung).
-- **Spectrum** — `SpectrumApplyMiniMaxH3` (xmarre).
-- **FirstBlockCache** — `ApplyMiniMaxH3FirstBlockCache` (duckyshell).
-
-**Two‑pass helpers —**
-- **PT_H3ConcatAVLatent** (ptmaster) · **MiniMaxH3AVDecodeT8** (T8mars).
-
-**Upscalers (Upscale tab) —**
-- **RTX Video Super Resolution** — `RTXVideoSuperResolution`
-  ([Comfy‑Org/Nvidia_RTX_Nodes_ComfyUI](https://github.com/comfyanonymous/ComfyUI)) — hardware
-  upscaler, RTX only.
-- **SeedVR2** — diffusion restorer (best on stylized / AI footage).
-- **FlashVSR** (`ComfyUI-FlashVSR_Stable`) — fast diffusion upscaler (best on real footage).
-- Any standard ESRGAN model in `models/upscale_models/`.
-
-> Node class names are stable; find each pack by name in **ComfyUI Manager** if a link moves.
-
----
-
-## Design notes
-
-- **Direct API graph** — hand‑authors a flat API graph (`workflows/iv.json`, `workflows/r2v.json`)
-  and patches it; robust and reviewable. Reference inputs use the exact dotted
-  `COMFY_AUTOGROW_V3` keys the backend expects (`ref_images.ref_image_0`, etc.).
-- **Fully namespaced** so it coexists with other nodes: routes `/minimaxh3/*`, class
-  `MiniMaxH3OneNode`, `window.__mmh3_nodes`, localStorage `minimaxh3_one_node_state`, CSS `mmh3-`.
-- **Headless test** (`node test/headless_build.mjs`) drives Generate across T2V / I2V / FLF / R2V
-  and asserts model routing, res/length math, the dotted reference keys, and sigma‑shift
-  injection — no GPU needed.
-
-## Tips
-
-- **Everything in the prompt** — no negative prompt exists; describe the shot list, camera
-  language, and the full soundtrack (dialogue in quotes, SFX, score).
-- **R2V ≤ 5 images** — more references dilute identity and slow generation. Use `max` detail
-  only when identity matters.
-- **VRAM** — the 32B encoder + diffusion weights offload to system RAM on smaller cards; it
-  runs, just not instantly. Keep Sage attention on.
-- **Legible on‑screen text** works best when you spell the exact words and add "clearly legible,
-  do not misspell, no subtitle bars."
-
----
-
-## License & credits
-
-MIT‑style **Apache‑2.0** for this wrapper (see `LICENSE`). See `NOTICE` for full attribution.
-This node **injects and runs** ComfyUI's built‑in MiniMax H3 nodes — it does **not** reimplement
-the model, and **bundles no weights**. MiniMax H3 by **MiniMax**; ComfyUI integration and models
-by **Comfy‑Org**. Optional add‑ons credited to their authors above.
-
-Not affiliated with MiniMax or Comfy‑Org. **Use responsibly** — H3 renders native speech; do not
-impersonate real people without consent or generate deceptive media.
-
-Made with ❤️ by **[The New Game Plus](https://www.youtube.com/@TheNewGamePluss)** ·
-☕ **[Ko‑fi](https://ko-fi.com/thenewgameplus)**
+Made by **[The New Game Plus](https://www.youtube.com/@TheNewGamePluss)** -
+[Ko-fi](https://ko-fi.com/thenewgameplus)

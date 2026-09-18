@@ -1,13 +1,44 @@
-# Python
+# Python and test caches
 __pycache__/
 *.py[cod]
 *.egg-info/
+.pytest_cache/
 
-# Node's per-user runtime state (never ship personal settings/favorites)
+# Per-user runtime state
 config.user.json
+favorites.user.json
+_user/
 
-# Editor / OS
+# Local development material
+backups/
+reports/
+tmp/
+*.orig
+*.bak
+*.log
+
+# Generated media and model weights
+input/
+output/ComfyUI-MiniMaxH3-OneNode/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.gguf
+*.mp4
+*.mov
+*.mkv
+*.wav
+*.mp3
+
+# Keep the published PDF guide
+!output/
+!output/pdf/
+!output/pdf/MiniMax_H3_One_Node_User_Guide.pdf
+
+# Editor and OS
 .DS_Store
 Thumbs.db
-*.log
+.idea/
+.vscode/
 node_modules/

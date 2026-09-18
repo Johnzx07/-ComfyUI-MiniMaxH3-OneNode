@@ -1,23 +1,64 @@
 ComfyUI-MiniMaxH3-OneNode
 Copyright 2026 The New Game Plus
 
-A single-node front end for MiniMax H3 video + audio generation in ComfyUI, in the
-"One Node" family (Krea-2 image, Wan 2.2 video, LTX-2 video). It injects and runs a
-real ComfyUI graph on Generate; it does not reimplement the model.
+This Apache-2.0 project is a graph-building user interface for MiniMax H3 in
+ComfyUI. It does not reimplement MiniMax H3 and does not include model weights.
 
-This product relies on, but does not include, the following:
+CORE UPSTREAM PROJECTS
 
-- ComfyUI (https://github.com/comfyanonymous/ComfyUI) and its built-in MiniMax H3
-  nodes (comfy_extras/nodes_minimax_h3.py, added in PR #15224): MiniMaxH3ImageToVideo,
-  MiniMaxH3ReferenceToVideo, MiniMaxH3SigmaShift — GPL-3.0.
-- The MiniMax H3 model weights, text encoder (Qwen3-VL-32B) and VAEs, distributed by
-  Comfy-Org at https://huggingface.co/Comfy-Org/MiniMax-H3 under their respective
-  licenses. MiniMax H3 by MiniMax (https://www.minimax.io/blog/minimax-h3).
+- ComfyUI and its native MiniMax H3, video, audio, sampler, mask, and AV latent
+  nodes: https://github.com/Comfy-Org/ComfyUI
+- MiniMax H3 model, architecture, documentation, and prompt-writing guidance:
+  https://github.com/MiniMax-AI/MiniMax-H3
+- ComfyUI-ready H3 model files:
+  https://huggingface.co/Comfy-Org/MiniMax-H3
+- Qwen3-VL encoder family:
+  https://github.com/QwenLM/Qwen3-VL
 
-Model weights are NOT bundled. Download them yourself and place them under
-ComfyUI/models/{diffusion_models,text_encoders,vae}/ as described in the node's
-in-panel download section and in README.md.
+MiniMax H3 weights and associated upstream material remain subject to the MiniMax
+H3 Community License Agreement and any terms on their model cards. Model weights
+are not bundled with this repository.
 
-Use responsibly. MiniMax H3 renders native audio including speech; do not use it to
-impersonate real people without consent, to generate deceptive media, or for any
-content involving minors or non-consensual subjects.
+OPTIONAL COMPANION PROJECTS
+
+The v3.24 interface can build graphs that use the following separately installed
+projects. Their source code and model files are not copied into this repository.
+
+- ComfyUI-MMH3Tools by ckinpdx
+- MiniMax H3 Latent Upscaler by LBH-123-AI
+- ComfyUI-MiniMax-H3-Turbo by Larryvrh and contributors
+- ComfyUI-CGlide by CGlide
+- ComfyUI-MiniMaxH3-Contex-Loop by ethanfel
+- comfyui-minimax-h3-audio-T8 by T8mars
+- ComfyUI-PT_H3ConcatAVLatent by ptmaster
+- ComfyUI-KJNodes by kijai
+- ComfyUI-sol-attn by Saganaki22
+- ComfyUI-MiniMaxH3-TeaCache by Icyoung
+- ComfyUI-MiniMaxH3-FirstBlockCache by duckyshell
+- ComfyUI-Spectrum-MiniMax-H3 by xmarre
+- ComfyUI-MiniMax-H3-PDD-Acc by Jalen-Brunson
+- Nvidia_RTX_Nodes_ComfyUI by Comfy-Org
+- ComfyUI-SeedVR2_VideoUpscaler by numz
+- ComfyUI-FlashVSR_Stable by naxci1
+- MaskVidExperiments by drozbay
+
+Repository links and the specific node classes used are listed in CREDITS.md.
+Each companion project retains its own license and attribution requirements.
+
+BUNDLED PROMPT MATERIAL
+
+Files under prompt_guides/official_minimax are pinned upstream MiniMax H3
+prompt-writing material. The exact source revision and hashes are recorded in
+prompt_guides/official_minimax/SOURCES.md. No ownership of that upstream material
+is asserted.
+
+PRIVACY
+
+The public release does not include model weights, full-resolution renders, API
+tokens, machine-specific paths, render favorites, or user settings. The compressed
+README demo GIF and three promotional stills are derived from the author's
+already-public YouTube render. Runtime settings are stored separately by ComfyUI.
+
+Use responsibly. Obtain appropriate rights and consent for reference media, voice,
+identity, and generated content. This project is not affiliated with MiniMax,
+Comfy-Org, NVIDIA, or the optional companion projects.
