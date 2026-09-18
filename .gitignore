@@ -32,11 +32,6 @@ output/ComfyUI-MiniMaxH3-OneNode/
 *.wav
 *.mp3
 
-# Keep the published PDF guide
-!output/
-!output/pdf/
-!output/pdf/MiniMax_H3_One_Node_User_Guide.pdf
-
 # Editor and OS
 .DS_Store
 Thumbs.db

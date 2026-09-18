@@ -3,6 +3,9 @@
 This guide installs One Node - MiniMax H3 v3.24 for local ComfyUI. The release is
 optimized for NVIDIA RTX GPUs with 16 GB VRAM. An 8 GB edition is in development.
 
+For a visual walkthrough of installation and every main generation mode, open the
+[MiniMax H3 One Node v3.24 User Guide (PDF)](MiniMax-H3-One-Node-v3.24-User-Guide.pdf).
+
 ## 1. Hardware and software
 
 Recommended for the protected 15-second workflow:
