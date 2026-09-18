@@ -6,6 +6,10 @@ reference-to-video, protected HD refinement, repair, continuation, and upscaling
 one panel. Pressing **Generate** builds and submits a real ComfyUI graph; no manual
 wiring is required.
 
+> 📘 **Start here:** [MiniMax H3 One Node v3.24 User Guide (PDF)](MiniMax-H3-One-Node-v3.24-User-Guide.pdf)
+> — an illustrated walkthrough covering installation, models, generation modes,
+> Reference mode, LoRAs, and the protected 15-second 1080p/2K workflow.
+
 > **Hardware target:** optimized and tested for **NVIDIA RTX GPUs with 16 GB VRAM**.
 > The protected 15-second presets use model offload, FP32 latent upscaling, small
 > temporal windows, CPU accumulation, and a low-denoise second pass to reach
@@ -17,7 +21,7 @@ wiring is required.
 ## Release documentation
 
 - [Detailed installation guide](INSTALL.md)
-- [User guide PDF](output/pdf/MiniMax_H3_One_Node_User_Guide.pdf)
+- [Illustrated v3.24 user guide (PDF)](MiniMax-H3-One-Node-v3.24-User-Guide.pdf)
 - [Companion nodes and credits](CREDITS.md)
 - [Optional CREATE assistant guide](docs/CREATE_ASSISTANT.md)
 - [License](LICENSE) and [third-party notice](NOTICE)
