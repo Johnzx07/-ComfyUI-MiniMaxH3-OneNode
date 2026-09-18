@@ -1,3 +1,4 @@
+# One Node - MiniMax H3 v3.24.0
 # ComfyUI-MiniMaxH3-OneNode has no extra Python dependencies of its own.
 #
 # It drives ComfyUI's built-in MiniMax H3 nodes (comfy_extras/nodes_minimax_h3.py,
