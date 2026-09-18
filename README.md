@@ -163,5 +163,8 @@ authors under their own licenses. See [CREDITS.md](CREDITS.md) and [NOTICE](NOTI
 Not affiliated with MiniMax or Comfy-Org. Use generated speech and reference media
 responsibly and obtain consent where required.
 
-Made by **[The New Game Plus](https://www.youtube.com/@TheNewGamePluss)** -
-[Ko-fi](https://ko-fi.com/thenewgameplus)
+## Community and support
+
+- [YouTube — The New Game Plus](https://www.youtube.com/@TheNewGamePluss)
+- [Discord community](https://discord.gg/nwXq8wZzEA)
+- [Support the project on Ko-fi](https://ko-fi.com/thenewgameplus)
