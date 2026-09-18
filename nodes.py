@@ -415,10 +415,14 @@ def _serve_json(rel):
 
 
 try:
-    # iv.json  -> MiniMaxH3ImageToVideo (T2V / I2V / first+last-frame)
-    # r2v.json -> MiniMaxH3ReferenceToVideo (reference images / videos / audio)
-    PromptServer.instance.routes.get("/minimaxh3/workflow_iv")(_serve_json("workflows/iv.json"))
-    PromptServer.instance.routes.get("/minimaxh3/workflow_r2v")(_serve_json("workflows/r2v.json"))
+    # v3.24 FL2VA template -> MiniMaxH3ImageToVideo (T2V / I2V / first+last-frame)
+    # v3.24 Ref2VA template -> MiniMaxH3ReferenceToVideo (reference images / videos / audio)
+    PromptServer.instance.routes.get("/minimaxh3/workflow_iv")(
+        _serve_json("workflows/minimax-h3-one-node-v3.24-fl2va.json")
+    )
+    PromptServer.instance.routes.get("/minimaxh3/workflow_r2v")(
+        _serve_json("workflows/minimax-h3-one-node-v3.24-ref2va.json")
+    )
 except Exception as _e:  # pragma: no cover
     print(f"[MMH3] could not register workflow routes: {_e}")
 

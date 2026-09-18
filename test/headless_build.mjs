@@ -12,8 +12,8 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(__dirname, "..", "web", "minimaxh3_one_node.js");
-const IV = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "workflows", "iv.json"), "utf8"));
-const R2V = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "workflows", "r2v.json"), "utf8"));
+const IV = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "workflows", "minimax-h3-one-node-v3.24-fl2va.json"), "utf8"));
+const R2V = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "workflows", "minimax-h3-one-node-v3.24-ref2va.json"), "utf8"));
 
 // ── minimal DOM ───────────────────────────────────────────────────────────────
 function makeEl(tag){
