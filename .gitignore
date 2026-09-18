@@ -6,6 +6,7 @@ __pycache__/
 
 # Per-user runtime state
 config.user.json
+favorites.json
 favorites.user.json
 _user/
 
