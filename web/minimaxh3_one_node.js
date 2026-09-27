@@ -530,7 +530,7 @@ app.registerExtension({
       let _easycacheAvailable=false; // EasyCache (native ComfyUI core, comfy_extras/nodes_easycache.py) — probed on init
       let _ptConcatAvail=false;      // PT_H3ConcatAVLatent (ptmaster) — two-pass, probed on init
       let _t8DecodeAvail=false;      // MiniMaxH3AVDecodeT8 (T8mars) — two-pass, probed on init
-      let _latentUpAvail=false;      // MinimaxH3LatentUpscaler3D (LBH-123-AI) — latent-space two-pass engine
+      let _latentUpAvail=false; let _latentUpChunkKey="enable_chunking"; // renamed upstream from enable_temporal_chunking; detected from /object_info      // MinimaxH3LatentUpscaler3D (LBH-123-AI) — latent-space two-pass engine
       let _mmh3ChunkUpAvail=false;   // MMH3Tools: VAE/pixel upscale one H3 group at a time
       let _mmh3WindowAvail=false;    // MMH3Tools: fused low-denoise H3 context windows
       let _mmh3SplitAvail=false;     // MMH3Tools: split packed AV latent for audio pinning
@@ -3127,7 +3127,7 @@ app.registerExtension({
           "F:ctxsrc":{class_type:"MiniMaxH3ChainContext",inputs:{state:["F:current",0],conditioning:["F:condsrc",0],vae:["F:vae",0],latent:["F:condsrc",1],audio_vae:["F:avae",0]},_meta:{title:"H3 source-lock context"}},
           "F:source":{class_type:"MiniMaxH3ContexLoopSourceAVTarget",inputs:{state:["F:current",0],latent:["F:ctxsrc",3],vae:["F:vae",0],audio_vae:["F:avae",0],source_frames:["F:scale",0],source_audio:info.has_audio?["F:comp",1]:["F:silence",0],source_fps:["F:comp",2],crop:"center"},_meta:{title:"Encode protected source AV latent"}},
           "F:sep":{class_type:"LTXVSeparateAVLatent",inputs:{av_latent:["F:source",0]},_meta:{title:"Split protected video + audio latent"}},
-          "F:lup":{class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["F:sep",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":target.w,"mode.height":target.h,align:32,enable_temporal_chunking:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"H3 neural latent upscale"}},
+          "F:lup":{class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["F:sep",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":target.w,"mode.height":target.h,align:32,[_latentUpChunkKey]:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"H3 neural latent upscale"}},
           "F:concat":{class_type:"LTXVConcatAVLatent",inputs:{video_latent:["F:lup",0],audio_latent:["F:sep",1]},_meta:{title:"Rejoin protected audio with upscaled video latent"}},
           "F:mask":{class_type:"SolidMask",inputs:{value:1.0,width:target.w,height:target.h},_meta:{title:"Full-frame low-denoise recovery mask"}},
           "F:masked":{class_type:"MiniMaxH3ContexMaskedTarget",inputs:{target_latent:["F:concat",0],mask:["F:mask",0],mask_meaning:"white = generate",audio_mode:"preserve source audio",mask_conversion:"H3 exact (causal/token max)"},_meta:{title:"Source-locked recovery latent"}},
@@ -3367,7 +3367,7 @@ app.registerExtension({
           // then low-denoise H3 windows fused in one latent timeline.  Crucially, the snapped
           // repair mask is applied again at the larger canvas so black pixels cannot be redesigned.
           g["R:sep2"]={class_type:"LTXVSeparateAVLatent",inputs:{av_latent:["R:sample",0]},_meta:{title:"Split repaired video + locked audio"}};
-          g["R:lup2"]={class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["R:sep2",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":target.w,"mode.height":target.h,align:32,enable_temporal_chunking:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"Repair HD latent upscale"}};
+          g["R:lup2"]={class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["R:sep2",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":target.w,"mode.height":target.h,align:32,[_latentUpChunkKey]:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"Repair HD latent upscale"}};
           g["R:concat2"]={class_type:"LTXVConcatAVLatent",inputs:{video_latent:["R:lup2",0],audio_latent:["R:sep2",1]},_meta:{title:"Rejoin HD video + locked audio"}};
           g["R:masked2"]={class_type:"MiniMaxH3ContexMaskedTarget",inputs:{target_latent:["R:concat2",0],mask:["R:grid",0],mask_meaning:"white = generate",audio_mode:"preserve source audio",mask_conversion:"H3 exact (causal/token max)"},_meta:{title:"Lock protected pixels again at HD"}};
           if(hasRef){
@@ -3746,7 +3746,7 @@ app.registerExtension({
             // neural upscaler, rejoin the untouched audio latent. No decode/encode round trip; the
             // upscaler never sees audio. LTXVSeparate/Concat ship with ComfyUI core.
             prompt["M:sep"]={class_type:"LTXVSeparateAVLatent",inputs:{av_latent:["M:samp",0]},_meta:{title:"Split AV latent (video / audio)"}};
-            prompt["M:lup"]={class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["M:sep",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":s2res.w,"mode.height":s2res.h,align:32,enable_temporal_chunking:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"Latent upscale → refine res"}};
+            prompt["M:lup"]={class_type:"MinimaxH3LatentUpscaler3D",inputs:{latent:["M:sep",0],model_name:(S.latentUpModel||_latentUpModels[0]||""),mode:"target dimensions","mode.width":s2res.w,"mode.height":s2res.h,align:32,[_latentUpChunkKey]:true,force_unload:true,device:"cuda",precision:"fp32"},_meta:{title:"Latent upscale → refine res"}};
             prompt["M:concat"]={class_type:"LTXVConcatAVLatent",inputs:{video_latent:["M:lup",0],audio_latent:["M:sep",1]},_meta:{title:"Re-join AV latent (stage-2 start)"}};
             if(_windowedStage2){
               prompt["M:split2"]={class_type:"MMH3SplitAV",inputs:{latent:["M:concat",0],preserve_masks:true},_meta:{title:"Split latent-upscaled AV"}};
@@ -3915,6 +3915,7 @@ app.registerExtension({
       }).catch(()=>{ _noiseMaskAvail=false; updateTwoPassUI(); });
       api.fetchApi("/object_info/MinimaxH3LatentUpscaler3D").then(r=>r.ok?r.json():{}).then(d=>{
         const info=d&&d.MinimaxH3LatentUpscaler3D; _latentUpAvail=!!info;
+        if(info){ const _in=Object.assign({},info.input&&info.input.required,info.input&&info.input.optional); _latentUpChunkKey=("enable_chunking" in _in)?"enable_chunking":("enable_temporal_chunking" in _in)?"enable_temporal_chunking":_latentUpChunkKey; }
         if(info){ try{ const mn=(info.input.required||{}).model_name;
           // V3 combo: ["COMBO",{options:[...]}]; legacy combo: [[...options]]. Handle both.
           let arr=null;
