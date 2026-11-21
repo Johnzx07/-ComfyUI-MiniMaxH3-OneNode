@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import creative_assistant as ca
 import creative_skills as cs
 from test_creative_assistant import HttpTests, PROMPT, ANSWER
@@ -90,6 +91,32 @@ class SkillsTests(unittest.TestCase):
         prompt=PROMPT.replace("Drawn anime pilot enters the room.", "The pilot says 'Hold here.' then closes her lips.")
         result=ca.parse_result(json.dumps({**ANSWER,"prompt":prompt}),body)
         self.assertTrue(any("without official <d>" in w for w in result["warnings"]))
+
+
+    def test_crlf_checkout_self_heals_to_pinned_bytes(self):
+        # Regression: git autocrlf=true checkouts store the pinned LF guides as
+        # CRLF, which used to fail the integrity gate forever on Windows.
+        import hashlib, tempfile
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            for name in cs.HASHES:
+                (tmp / name).parent.mkdir(parents=True, exist_ok=True)
+                (tmp / name).write_bytes((cs.ROOT / name).read_bytes().replace(bytes([10]), bytes([13, 10])))
+            with patch.object(cs, "ROOT", tmp):
+                _, meta = cs.official_guidance({"mode": "r2v"})
+            self.assertEqual(meta["skill_mode"], "official")
+            for name, digest in cs.HASHES.items():
+                self.assertEqual(hashlib.sha256((tmp / name).read_bytes()).hexdigest(), digest)
+
+    def test_tampered_bytes_still_fail_integrity(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            for name in cs.HASHES:
+                (tmp / name).parent.mkdir(parents=True, exist_ok=True)
+                (tmp / name).write_bytes((cs.ROOT / name).read_bytes() + b"?")
+            with patch.object(cs, "ROOT", tmp), self.assertRaises(ValueError):
+                cs.official_guidance({"mode": "r2v"})
 
 
 class SkillHttpTests(HttpTests):

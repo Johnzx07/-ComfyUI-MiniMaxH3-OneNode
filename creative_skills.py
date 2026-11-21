@@ -58,7 +58,17 @@ def official_guidance(body):
     for name in files:
         raw = (ROOT / name).read_bytes()
         if hashlib.sha256(raw).hexdigest() != HASHES[name]:
-            raise ValueError("Official H3 source-integrity check failed: " + name)
+            # git's autocrlf=true (the default Windows install) checks the pinned
+            # LF guide files out as CRLF; that exact line-ending transformation
+            # is repaired in place, any other byte difference still fails loudly.
+            healed = raw.replace(bytes([13, 10]), bytes([10]))
+            if hashlib.sha256(healed).hexdigest() != HASHES[name]:
+                raise ValueError("Official H3 source-integrity check failed: " + name)
+            try:
+                (ROOT / name).write_bytes(healed)
+            except OSError:
+                pass
+            raw = healed
         sections.append("SOURCE FILE: " + name + "\n" + raw.decode("utf-8"))
     return "\n\n".join(sections), {
         "guide_version": "Official MiniMax H3 · " + mode + " · " + REVISION[:7],

@@ -8,3 +8,10 @@
 *.webm binary
 *.wav binary
 *.mp3 binary
+# Byte-exact pinned upstream guide files: creative_skills.py SHA-256-checks
+# them at runtime. git's line-ending conversion (autocrlf=true is the default
+# Windows install) rewrote these LF files to CRLF on checkout, changing every
+# hash and making the official skill feature fail forever on Windows clones.
+# -text tells git to never touch these bytes.
+prompt_guides/official_minimax/** -text
+prompt_guides/official_minimax/**/* -text
